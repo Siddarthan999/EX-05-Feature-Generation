@@ -30,101 +30,101 @@ Save the data to the file
 
 # FOR “data.csv”
 
-import pandas as pd
+    import pandas as pd
 
-#Load the data.csv file
+    #Load the data.csv file
 
-df = pd.read_csv('data.csv')
+    df = pd.read_csv('data.csv')
 
-#One-Hot Encoding for categorical columns
+    #One-Hot Encoding for categorical columns
 
-df_onehot = pd.get_dummies(df[['City', 'Ord_1']])
+    df_onehot = pd.get_dummies(df[['City', 'Ord_1']])
 
-#Binary Encoding for binary columns
+    #Binary Encoding for binary columns
 
-df['bin_1'] = df['bin_1'].map({'F': 0, 'M': 1})
+    df['bin_1'] = df['bin_1'].map({'F': 0, 'M': 1})
 
-df['bin_2'] = df['bin_2'].map({'N': 0, 'Y': 1})
+    df['bin_2'] = df['bin_2'].map({'N': 0, 'Y': 1})
 
-#Ordinal Encoding for ordinal column
+    #Ordinal Encoding for ordinal column
 
-ord_mapping = {'High School': 0, 'Diploma': 1, 'Bachelors': 2, 'Masters': 3, 'PhD': 4}
+    ord_mapping = {'High School': 0, 'Diploma': 1, 'Bachelors': 2, 'Masters': 3, 'PhD': 4}
 
-df['Ord_2'] = df['Ord_2'].map(ord_mapping)
+    df['Ord_2'] = df['Ord_2'].map(ord_mapping)
 
-#Concatenate the encoded columns with the original data
+    #Concatenate the encoded columns with the original data
 
-df_encoded = pd.concat([df[['id']], df_onehot, df[['bin_1', 'bin_2', 'Ord_2', 'Target']]], axis=1)
+    df_encoded = pd.concat([df[['id']], df_onehot, df[['bin_1', 'bin_2', 'Ord_2', 'Target']]], axis=1)
 
-#Save the encoded data to a new file
+    #Save the encoded data to a new file
 
-df_encoded.to_csv('Data_encoded.csv', index=False)
+    df_encoded.to_csv('Data_encoded.csv', index=False)
 
 # OUTPUT
 ![image](https://user-images.githubusercontent.com/91734840/232391285-79bf654c-a3c2-455c-b298-44bf89d145f3.png)
 
 # FOR “Encoding_Data.csv”
 
-import pandas as pd
+    import pandas as pd
 
-#Load the encoding.csv file
+    #Load the encoding.csv file
 
-df = pd.read_csv('Encoding_Data.csv')
+    df = pd.read_csv('Encoding_Data.csv')
 
-#One-Hot Encoding for categorical columns
+    #One-Hot Encoding for categorical columns
 
-df_onehot = pd.get_dummies(df[['bin_1', 'bin_2', 'nom_0', 'ord_2']])
+    df_onehot = pd.get_dummies(df[['bin_1', 'bin_2', 'nom_0', 'ord_2']])
 
-#Binary Encoding for binary columns
+    #Binary Encoding for binary columns
 
-df['bin_1'] = df['bin_1'].map({'F': 0, 'T': 1})
+    df['bin_1'] = df['bin_1'].map({'F': 0, 'T': 1})
 
-df['bin_2'] = df['bin_2'].map({'N': 0, 'Y': 1})
+    df['bin_2'] = df['bin_2'].map({'N': 0, 'Y': 1})
 
-#Ordinal Encoding for ordinal column
+    #Ordinal Encoding for ordinal column
 
-ord_mapping = {'Cold': 0, 'Warm': 1, 'Hot': 2}
+    ord_mapping = {'Cold': 0, 'Warm': 1, 'Hot': 2}
 
-df['ord_2'] = df['ord_2'].map(ord_mapping)
+    df['ord_2'] = df['ord_2'].map(ord_mapping)
 
-#Concatenate the encoded columns with the original data
+    #Concatenate the encoded columns with the original data
 
-df_encoded = pd.concat([df[['id']], df_onehot, df[['bin_1', 'bin_2', 'ord_2']]], axis=1)
+    df_encoded = pd.concat([df[['id']], df_onehot, df[['bin_1', 'bin_2', 'ord_2']]], axis=1)
 
-#Save the encoded data to a new file
+    #Save the encoded data to a new file
 
-df_encoded.to_csv('Encoding_encoded.csv', index=False)
+    df_encoded.to_csv('Encoding_encoded.csv', index=False)
 
-# OUTPUT
-![image](https://user-images.githubusercontent.com/91734840/232391362-a7e15c8f-0203-4033-9587-e6695f1d3e75.png)
+    # OUTPUT
+    ![image](https://user-images.githubusercontent.com/91734840/232391362-a7e15c8f-0203-4033-9587-e6695f1d3e75.png)
 
-# FOR “titanic_dataset.csv”
+    # FOR “titanic_dataset.csv”
 
-import pandas as pd
+    import pandas as pd
 
-#Load the titanic_dataset.csv file
+    #Load the titanic_dataset.csv file
 
-df = pd.read_csv('titanic_dataset.csv')
+    df = pd.read_csv('titanic_dataset.csv')
 
-#One-Hot Encoding for categorical columns
+    #One-Hot Encoding for categorical columns
 
-df_onehot = pd.get_dummies(df[['Sex', 'Embarked']])
+    df_onehot = pd.get_dummies(df[['Sex', 'Embarked']])
 
-#Extracting Title from Name
+    #Extracting Title from Name
 
-df['Title'] = df['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
+    df['Title'] = df['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
 
-#Family Size
+    #Family Size
 
-df['FamilySize'] = df['SibSp'] + df['Parch'] + 1
+    df['FamilySize'] = df['SibSp'] + df['Parch'] + 1
 
-#Concatenate the encoded columns and new features with the original data
+    #Concatenate the encoded columns and new features with the original data
 
-df_encoded = pd.concat([df[['PassengerId', 'Survived', 'Pclass', 'Age', 'Fare', 'Cabin']], df_onehot, df[['Title', 'FamilySize']]], axis=1)
+    df_encoded = pd.concat([df[['PassengerId', 'Survived', 'Pclass', 'Age', 'Fare', 'Cabin']], df_onehot, df[['Title', 'FamilySize']]], axis=1)
 
-#Save the encoded data to a new file
+    #Save the encoded data to a new file
 
-df_encoded.to_csv('Titanic_dataset_encoded.csv', index=False)
+    df_encoded.to_csv('Titanic_dataset_encoded.csv', index=False)
 
 # OUTPUT
 ![image](https://user-images.githubusercontent.com/91734840/232391404-a10286cf-fc7d-4636-b365-722a35b52e91.png)
